@@ -1,6 +1,13 @@
+
 ![Docker Image CI](https://github.com/bateau84/openttd/workflows/Docker%20Image%20CI/badge.svg?branch=master)  
 [![dockeri.co](https://dockeri.co/image/bateau/openttd)](https://hub.docker.com/r/bateau/openttd)
 ## Usage ##
+
+### Description ###
+This image will install a dedicated server for the JGRPP version of OpenTTD
+https://github.com/JGRennison/OpenTTD-patches
+
+This image uses the scripts and setup from https://github.com/bateau84/openttd 
 
 ### File locations ###
 This image is supplied with a user named `openttd`.  
@@ -40,7 +47,7 @@ Run Openttd with random port assignment.
 Its set up to not load any games by default (new game) and it can be run without mounting a .openttd folder.  
 However, if you want to save/load your games, mounting a .openttd folder is required.
 
-    docker run -v /path/to/your/.openttd:/home/openttd/.openttd -p 3979:3979/tcp -p 3979:3979/udp bateau/openttd:latest
+	   docker run -v /path/to/your/.openttd:/home/openttd/.openttd -p 3979:3979/tcp -p 3979:3979/udp bateau/openttd:latest
 
 Set UID and GID of user in container to be the same as your user outside with seting env PUID and PGID.
 For example
@@ -55,6 +62,32 @@ For example to run server and load my savename game.sav:
 
     docker run -d -p 3979:3979/tcp -p 3979:3979/udp -v /home/<your_username>/.openttd:/home/openttd/.openttd -e PUID=<your_userid> -e PGID=<your_groupid> -e "loadgame=true" -e "savename=game.sav" bateau/openttd:latest
 
+### Setup ###
+My recommendation is to create a folder on the host machine (/opt/openttd-jgr/.openttd) to store the files for the server in. I would then create the save and autosave folders (/opt/openttd-jgr/.openttd/save/autosave) 
+
+	mkdir /opt/openttd-jgr/.openttd
+	mkdir /opt/openttd-jgr/.openttd/save
+	mkdir /opt/openttd-jgr/.openttd/save/autosave
+
+I then create a config file in the .openttd folder containing standard config items like server name and rcon password for admin access from within the game
+
+	cd /opt/openttd-jgr/.openttd
+	nano openttd.cfg
+Put the following in the cfg file
+	
+	[network]
+	server_name = "JGR Server"
+	client_name = "Server"
+	rcon_password = "SomethingSecure"
+You can add extra settings to the config file as per https://wiki.openttd.org/en/Archive/Manual/Settings/Openttd.cfg
+
+I've found the easiest way to setup a world is to:
+Load world in single player with settings you want to play with
+Save game and copy to server
+If you set the ENV 'loadgame = last-autosave' then I would save the file as autosave.sav and copy to the autosave folder, the server will then automatically load that save.
+
+If you want to use NEWGRFs in the world then add these to the single player first, save and exit the game and then find the local copy of openttd.cfg (normally located at c:\users\username\documents\openttd). Add the section labeled [newgrf] to the config file on the server (**if you are using windows change the backslashes to forward slashes**) and then copy the newgrfs from your device to the server into the folder labeled content_download\newgrf (/opt/openttd-jgr/.openttd/content_download/newgrf)
+
 ## Kubernetes ##
 
 Supplied some example for deploying on kubernetes cluster. "k8s_openttd.yml"
@@ -65,4 +98,4 @@ just run
 and it will apply configmap with openttd.cfg, deployment and service listening on port 31979 UDP/TCP.
 
 ## Other tags ##
-   * See [bateau/openttd](https://hub.docker.com/r/bateau/openttd) on docker hub for other tags
+   * See [bateau/openttd](https://hub.docker.com/r/bateau/openttd) on docker hub for other tag
