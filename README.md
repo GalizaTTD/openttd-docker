@@ -1,5 +1,5 @@
 
-[![dockeri.co](https://dockeri.co/image/dewg/openttd-jgr)](https://hub.docker.com/r/dewg/openttd-jgr)
+<!--[![dockeri.co](https://dockeri.co/image/dewg/openttd-jgr)](https://hub.docker.com/r/dewg/openttd-jgr)-->
 ## Usage ##
 
 ### Description ###

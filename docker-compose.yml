@@ -1,0 +1,20 @@
+version: "3.7"
+services:
+  openttd:
+    container_name: openttd
+    build:
+      context: .
+      args:
+        OPENTTD_JGR_VERSION: 0.47.1
+    image: galizattd/openttd:latest
+    restart: always
+    ports:
+      - "127.0.0.1:3979:3979"
+    environment:
+      loadgame: "true"
+      savename: "test-scenario-partida.scn"
+      PUID: "1000"
+      PGID: "1000"
+      debug: "2"
+    volumes:
+      - ./data:/home/openttd/.openttd/
