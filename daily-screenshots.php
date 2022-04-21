@@ -6,7 +6,7 @@ $timezone = 'Europe/Madrid';
 $server = '127.0.0.1'; // Hostname or IP
 $port = 3977; // Port
 $password = "PASSWORD"; // Password
-$type = "topography" // Screenshot type. Valid working values: minimap / topography / industry
+$type = "topography"; // Screenshot type. Valid working values: minimap / topography / industry
 //#######################################################
 date_default_timezone_set($timezone); // Time
 
