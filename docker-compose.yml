@@ -9,10 +9,11 @@ services:
     image: galizattd/openttd:latest
     restart: always
     ports:
-      - "127.0.0.1:3979:3979"
+      - "0.0.0.0:3979:3979"
     environment:
       loadgame: "true"
-      savename: "test-scenario-partida.scn"
+      #loadgame: "last-autosave"
+      savename: "galizattd.scn"
       PUID: "1000"
       PGID: "1000"
       debug: "2"
