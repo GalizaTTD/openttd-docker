@@ -7,8 +7,6 @@ ADD prepare.sh /tmp/prepare.sh
 ADD cleanup.sh /tmp/cleanup.sh
 ADD buildconfig /tmp/buildconfig
 ADD --chown=1000:1000 openttd.sh /openttd.sh
-ADD --chown=1000:1000 daily-screenshots.php /home/openttd/.openttd/daily-screenshots.php
-ADD --chown=1000:1000 openttd-admin.php /home/openttd/.openttd/openttd-admin.php
 
 RUN chmod +x /tmp/prepare.sh /tmp/cleanup.sh /openttd.sh
 RUN /tmp/prepare.sh \
