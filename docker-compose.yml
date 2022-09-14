@@ -5,7 +5,7 @@ services:
     build:
       context: .
       args:
-        OPENTTD_JGR_VERSION: 0.47.1
+        OPENTTD_JGR_VERSION: 0.48.2
     image: galizattd/openttd:latest
     restart: always
     ports:

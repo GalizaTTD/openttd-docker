@@ -1,19 +1,52 @@
+# OpenTTD JGRPP Docker Image
+[![GitHub license][license-shield]][license-url]
 
-<!--[![dockeri.co](https://dockeri.co/image/dewg/openttd-jgr)](https://hub.docker.com/r/dewg/openttd-jgr)-->
-## Usage ##
+<!-- TABLE OF CONTENTS, generated with gh-md-toc README.md (see #acknowledgements) -->
 
-### Description ###
+Table of Contents
+=================
+
+* [OpenTTD JGRPP Docker Image](#openttd-jgrpp-docker-image)
+* [Table of Contents](#table-of-contents)
+   * [About The Project](#about-the-project)
+      * [Features](#features)
+   * [Getting Started](#getting-started)
+      * [File locations](#file-locations)
+      * [Environment variables](#environment-variables)
+      * [Networking](#networking)
+      * [Examples](#examples)
+      * [Setup](#setup)
+      * [Docker Compose](#docker-compose)
+      * [Kubernetes](#kubernetes)
+   * [Support &amp; Contributing](#support--contributing)
+   * [Authors](#authors)
+   * [Acknowledgements](#acknowledgements)
+   * [License](#license)
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
+
 This image will install a dedicated server for the JGRPP version of OpenTTD
 https://github.com/JGRennison/OpenTTD-patches
 
 This image uses the scripts and setup from https://github.com/bateau84/openttd 
+
+### Features
+
+- Docker container image to host OpenTTD Games.
+- [PHP OpenTTD Admin script from Toomeeno](https://github.com/toomeenoo/php-openttd-admin)
+- Daily topography screenshots script
+
+
+<!-- GETTING STARTED -->
+## Getting Started
 
 ### File locations ###
 This image is supplied with a user named `openttd`.  
 Openttd server is run as this user and subsequently its home folder will be `/home/openttd`.  
 Openttd on linux uses `.openttd` in the users homefolder to store configurations, savefiles and other miscellaneous files.  
 If you want to your local files accessible to openttd server inside the container you need to mount them inside with `-v` parameter (see https://docs.docker.com/engine/reference/commandline/run/ for more details on -v)
-
 
 ### Environment variables ###
 These environment variables can be altered to change the behavior of the application inside the container.  
@@ -78,7 +111,7 @@ Put the following in the cfg file
 	server_name = "JGR Server"
 	client_name = "Server"
 	rcon_password = "SomethingSecure"
-You can add extra settings to the config file as per https://wiki.openttd.org/en/Archive/Manual/Settings/Openttd.cfg
+You can add extra settings to the config file as per https://wiki.openttd.org/en/Archive/Manual/Settings/Openttd.cfg. **Bear in mind that since OpenTTD last versions, config has been divided in three  files: `openttd.cfg` (server settings), `private.cfg` (Server & client name) and `secrets.cfg` (rcon, settings & admin password)
 
 I've found the easiest way to setup a world is to:
 Load world in single player with settings you want to play with
@@ -87,14 +120,60 @@ If you set the ENV 'loadgame = last-autosave' then I would save the file as auto
 
 If you want to use NEWGRFs in the world then add these to the single player first, save and exit the game and then find the local copy of openttd.cfg (normally located at c:\users\username\documents\openttd). Add the section labeled [newgrf] to the config file on the server (**if you are using windows change the backslashes to forward slashes**) and then copy the newgrfs from your device to the server into the folder labeled content_download\newgrf (/opt/openttd-jgr/.openttd/content_download/newgrf)
 
-## Kubernetes ##
+### Docker Compose ###
 
-Supplied some example for deploying on kubernetes cluster. "k8s_openttd.yml"
+Supplied an example for building this fork Docker Image and launch it from a `docker-compose.yml` file. Just edit with the `OPENTTD_JGR_VERSION` you would like to use and the environmental variables to set up the game and savegames, as well as the volume for the files. Then run:
+
+    docker-compose up -d
+
+### Kubernetes ###
+
+Also supplied some example for deploying on kubernetes cluster. "k8s_openttd.yml"
 just run 
 
     kubectl apply openttd.yaml
 
 and it will apply configmap with openttd.cfg, deployment and service listening on port 31979 UDP/TCP.
 
-## Other tags ##
-   * See [bateau/openttd](https://hub.docker.com/r/bateau/openttd) on docker hub for other tag
+
+<!-- CONTRIBUTING -->
+
+## Support & Contributing
+
+If you want to add any missing feature or report a bug, you [can request ir or report it here][issues-url]. Also if you are want and know how to do it, go ahead! That's what make the open source community shines, by allowing us to grow and learn from each other creating amazing tools! Any contribution you make is **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## Authors
+
+- Pablo Villaverde Castro - [@clankirfed](https://twitter.com/clankirfed)
+- Bateau84 ([Original Docker Image](https://github.com/bateau84/openttd))
+- Dougiebabe ([JGR Docker Image](https://github.com/Dougiebabe/openttd-jgr))
+- Toomeenoo ([PHP OpenTTD Admin](https://github.com/toomeenoo/php-openttd-admin))
+
+
+<!-- ACKNOWLEDGEMENTS -->
+
+## Acknowledgements
+* [TOC Generator](https://github.com/ekalinin/github-markdown-toc)
+* [MakeFile Tutorial](https://makefiletutorial.com/)
+
+
+## License
+
+
+[![GitHub license][license-shield]][license-url]
+
+Distributed under the GNU GPL-v3 License. See [LICENSE][license-url] on for more information.
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[license-shield]: https://img.shields.io/badge/license-GNU%20GPL--v3-brightgreen
+[license-url]: https://github.com/GalizaTTD/openttd-docker/blob/master/LICENSE
+[project-url]: https://github.com/GalizaTTD/openttd-docker
+[issues-url]: https://github.com/GalizaTTD/openttd-docker/issues
