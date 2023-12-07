@@ -6,21 +6,20 @@ set -x
 
 ## Temporarily disable dpkg fsync to make building faster.
 if [[ ! -e /etc/dpkg/dpkg.cfg.d/docker-apt-speedup ]]; then
-	echo force-unsafe-io > /etc/dpkg/dpkg.cfg.d/docker-apt-speedup
+   echo force-unsafe-io >/etc/dpkg/dpkg.cfg.d/docker-apt-speedup
 fi
 
-echo "deb http://security.ubuntu.com/ubuntu xenial-security main" >> /etc/apt/sources.list
+echo "deb http://security.ubuntu.com/ubuntu xenial-security main" >>/etc/apt/sources.list
 
 ## Update pkg repos
 apt update -qq
 
 ## Install things we need
-$minimal_apt_get_install php php-cli dumb-init wget unzip ca-certificates libfontconfig1 libfreetype6 libfluidsynth2 libicu-dev libpng16-16 liblzma-dev liblzo2-2 libsdl1.2debian libsdl2-2.0-0 > /dev/null 2>&1
+$minimal_apt_get_install php php-cli dumb-init wget unzip ca-certificates libfontconfig1 libfreetype6 libfluidsynth2 libicu-dev libpng16-16 liblzma-dev liblzo2-2 libsdl1.2debian libsdl2-2.0-0 >/dev/null 2>&1
 
 ## Download and install openttd
 wget -q https://github.com/JGRennison/OpenTTD-patches/releases/download/jgrpp-${OPENTTD_JGR_VERSION}/openttd-jgrpp-${OPENTTD_JGR_VERSION}-linux-ubuntu-focal-amd64.deb
 dpkg -i openttd-jgrpp-${OPENTTD_JGR_VERSION}-linux-ubuntu-focal-amd64.deb
-
 
 ## Download GFX and install
 mkdir -p /usr/share/games/openttd/baseset/
