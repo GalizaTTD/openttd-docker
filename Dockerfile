@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-ARG OPENTTD_JGR_VERSION="0.45.1"
+ARG OPENTTD_JGR_VERSION="0.56.0"
 ARG OPENGFX_VERSION="7.1"
 
 ADD prepare.sh /tmp/prepare.sh
@@ -10,7 +10,7 @@ ADD --chown=1000:1000 openttd.sh /openttd.sh
 
 RUN chmod +x /tmp/prepare.sh /tmp/cleanup.sh /openttd.sh
 RUN /tmp/prepare.sh \
-    && /tmp/cleanup.sh
+   && /tmp/cleanup.sh
 
 VOLUME /home/openttd/.openttd
 
