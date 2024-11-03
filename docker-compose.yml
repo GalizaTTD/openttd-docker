@@ -1,15 +1,11 @@
 version: "3.7"
 services:
   openttd:
-    container_name: openttd
-    build:
-      context: .
-      args:
-        OPENTTD_JGR_VERSION: 0.48.2
-    image: galizattd/openttd:latest
+    image: pvillaverde/openttd-jgr:1.0.63
     restart: always
     ports:
       - "0.0.0.0:3979:3979"
+      - "0.0.0.0:3977:3977"
     environment:
       loadgame: "true"
       #loadgame: "last-autosave"
