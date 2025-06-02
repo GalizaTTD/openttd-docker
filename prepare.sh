@@ -18,8 +18,8 @@ apt update -qq
 $minimal_apt_get_install php php-cli dumb-init wget unzip ca-certificates libfontconfig1 libfreetype6 libfluidsynth2 libicu-dev libpng16-16 liblzma-dev liblzo2-2 libsdl1.2debian libsdl2-2.0-0 libharfbuzz0b >/dev/null 2>&1
 
 ## Download and install openttd
-wget -q https://github.com/JGRennison/OpenTTD-patches/releases/download/jgrpp-${OPENTTD_JGR_VERSION}/openttd-jgrpp-${OPENTTD_JGR_VERSION}-linux-ubuntu-focal-amd64.deb
-dpkg -i openttd-jgrpp-${OPENTTD_JGR_VERSION}-linux-ubuntu-focal-amd64.deb
+wget -q https://github.com/JGRennison/OpenTTD-patches/releases/download/jgrpp-${OPENTTD_JGR_VERSION}/openttd-jgrpp-${OPENTTD_JGR_VERSION}-linux-ubuntu-jammy-amd64.deb
+dpkg -i openttd-jgrpp-${OPENTTD_JGR_VERSION}-linux-ubuntu-jammy-amd64.deb
 
 ## Download GFX and install
 mkdir -p /usr/share/games/openttd/baseset/
