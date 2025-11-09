@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-ARG OPENTTD_JGR_VERSION="0.65.4"
+ARG OPENTTD_JGR_VERSION="0.68.0"
 ARG OPENGFX_VERSION="7.1"
 
 ADD prepare.sh /tmp/prepare.sh
